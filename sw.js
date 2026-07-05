@@ -1,5 +1,5 @@
 /* Eva Oyunlar — service worker: tam offline önbellek */
-const VERSION = "eva-v1.2.0";
+const VERSION = "eva-v1.3.0";
 const ASSETS = [
   "./",
   "./index.html",
@@ -48,4 +48,8 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-self.addE
+self.addEventListener("fetch", (e) => {
+  e.respondWith(
+    caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || fetch(e.request))
+  );
+});

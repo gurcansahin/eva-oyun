@@ -122,6 +122,62 @@
       o.connect(g); g.connect(c.destination);
       o.start(t0); o.stop(t0 + 0.8);
       hiss({ t0: t0, dur: 0.7, peak: 0.06, type: "lowpass", f: 400, q: 0.6 });
+    },
+    ayi: function () {
+      const c = AC(), t0 = c.currentTime + 0.01, o = c.createOscillator(), g = c.createGain(), lp = c.createBiquadFilter();
+      o.type = "sawtooth";
+      o.frequency.setValueAtTime(92, t0);
+      o.frequency.linearRampToValueAtTime(68, t0 + 0.6);
+      lp.type = "lowpass"; lp.frequency.value = 300;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.24, t0 + 0.09);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.72);
+      o.connect(lp); lp.connect(g); g.connect(c.destination);
+      o.start(t0); o.stop(t0 + 0.76);
+      hiss({ t0: t0, dur: 0.6, peak: 0.09, type: "lowpass", f: 240, q: 0.5 });
+    },
+    kurt: function () {
+      const c = AC(), t0 = c.currentTime + 0.01, o = c.createOscillator(), g = c.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(330, t0);
+      o.frequency.linearRampToValueAtTime(540, t0 + 0.28);
+      o.frequency.setValueAtTime(540, t0 + 0.72);
+      o.frequency.linearRampToValueAtTime(300, t0 + 1.12);
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.2, t0 + 0.16);
+      g.gain.setValueAtTime(0.2, t0 + 0.72);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.16);
+      o.connect(g); g.connect(c.destination);
+      o.start(t0); o.stop(t0 + 1.2);
+    },
+    kaplan: function () {
+      const c = AC(), t0 = c.currentTime + 0.01, o = c.createOscillator(), g = c.createGain(), lp = c.createBiquadFilter();
+      o.type = "sawtooth";
+      o.frequency.setValueAtTime(165, t0);
+      o.frequency.exponentialRampToValueAtTime(88, t0 + 0.5);
+      lp.type = "lowpass";
+      lp.frequency.setValueAtTime(720, t0);
+      lp.frequency.linearRampToValueAtTime(300, t0 + 0.5);
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.26, t0 + 0.1);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.6);
+      o.connect(lp); lp.connect(g); g.connect(c.destination);
+      o.start(t0); o.stop(t0 + 0.64);
+      hiss({ t0: t0, dur: 0.5, peak: 0.11, type: "bandpass", f: 480, q: 0.8 });
+    },
+    yunus: function () {
+      const c = AC(), t0 = c.currentTime + 0.01;
+      [[1800, 2600, 0], [2300, 3100, 0.15], [2000, 2800, 0.3]].forEach(function (b) {
+        const o = c.createOscillator(), g = c.createGain();
+        o.type = "sine";
+        o.frequency.setValueAtTime(b[0], t0 + b[2]);
+        o.frequency.exponentialRampToValueAtTime(b[1], t0 + b[2] + 0.1);
+        g.gain.setValueAtTime(0.0001, t0 + b[2]);
+        g.gain.exponentialRampToValueAtTime(0.12, t0 + b[2] + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + b[2] + 0.12);
+        o.connect(g); g.connect(c.destination);
+        o.start(t0 + b[2]); o.stop(t0 + b[2] + 0.16);
+      });
     }
   };
 
