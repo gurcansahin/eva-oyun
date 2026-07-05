@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ff6fa5">
+<title>Eva Market 🛒</title>
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">🛒 EVA MARKET<small>bip bip kasa oyunu</small></div>
+    <div class="total-box"><div class="lbl">Toplam</div><div class="amt" id="total">0 ₺</div></div>
+  </header>
+
+  <main>
+    <div class="left">
+      <div class="scanner" id="scanner">
+        <div class="hint">👉 SPACE bas ya da ürüne dokun</div>
+        <div class="beam" id="beam"></div>
+        <div id="product">🍎</div>
+        <div id="productName">Elma</div>
+        <div id="productPrice">5 ₺</div>
+      </div>
+      <div class="shelf" id="shelf"></div>
+    </div>
+
+    <div class="right">
+      <div class="receipt-wrap">
+        <div class="receipt" id="receipt">
+          <h3>EVA MARKET<span>Teşekkürler! 🌟</span></h3>
+          <div id="lines"><div class="empty">Sepet boş...<br>ürün oku!</div></div>
+          <div class="stamp" id="stamp">ÖDENDİ ✓</div>
+        </div>
+      </div>
+      <div class="btns">
+        <button class="candy scan" id="scanBtn"><span class="ic">🔦</span>ÜRÜN OKUT</button>
+        <button class="candy print" id="printBtn"><span class="ic">🧾</span>Fiş Yazdır</button>
+        <button class="candy card" id="cardBtn"><span class="ic">💳</span>Kart Öde</button>
+        <button class="candy reset" id="resetBtn"><span class="ic">🔄</span>Yeni Müşteri</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="spaceHint">SPACE = ürün okut · her ürünün kendi bip sesi var</div>
+
+  <div class="card-anim" id="cardAnim">
+    <div class="pos">
+      <div class="slot"></div>
+      <div class="ccard" id="ccard"></div>
+      <div class="ok-msg" id="okMsg">ONAYLANDI ✅</div>
+    </div>
+  </div>
+
+  <script src="../assets/js/audio.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#22b8cf">
+<title>Hayvan Dedektifi 🔍🐾</title>
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="title"><span class="mag">🔍</span> HAYVAN DEDEKTİFİ <span class="mag">🐾</span></div>
+    <div class="tabs">
+      <button class="tab active" id="tabFree">🔊 Sesli Hayvanlar</button>
+      <button class="tab" id="tabQuiz">🕵️ Dedektif</button>
+    </div>
+  </header>
+
+  <div class="freehint" id="freehint">Bir hayvana dokun, gerçek sesini dinle! 🎵</div>
+
+  <div class="question" id="questionBox">
+    <span class="q" id="qText"></span>
+    <button class="candy nextBtn" id="nextBtn">Sıradaki ➡️</button>
+  </div>
+  <div class="stars" id="stars"></div>
+
+  <main><div class="grid" id="grid"></div></main>
+
+  <script src="../assets/js/audio.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

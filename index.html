@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ff6fa5">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Eva'nın Oyunları 🎈</title>
+<link rel="stylesheet" href="assets/css/common.css">
+<style>
+  body {
+    background:
+      radial-gradient(circle at 20% 15%, #ffe680 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, #9be7ff 0%, transparent 50%),
+      linear-gradient(160deg, #ffd93d 0%, #ff6fa5 55%, #8b5cf6 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; padding: 20px;
+  }
+  h1 {
+    font-size: clamp(34px, 9vw, 62px); font-weight: 900; color: #fff;
+    text-shadow: 0 5px 0 rgba(0, 0, 0, 0.18); letter-spacing: -1px; text-align: center;
+  }
+  h1 .balloon { display: inline-block; animation: floaty 3s ease-in-out infinite; }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .games { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+  .card {
+    width: min(300px, 82vw); background: #fff; border-radius: 30px; padding: 26px 20px 22px;
+    text-align: center; text-decoration: none; box-shadow: 0 10px 0 rgba(0, 0, 0, 0.16);
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .card:active { transform: translateY(6px); box-shadow: 0 2px 0 rgba(0, 0, 0, 0.16); }
+  .card .emo { font-size: clamp(70px, 18vw, 100px); line-height: 1; display: block; filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.18)); }
+  .card .nm { font-size: clamp(22px, 5vw, 28px); font-weight: 900; margin-top: 10px; }
+  .card .ds { font-size: 15px; font-weight: 700; color: #888; margin-top: 4px; }
+  .card.market .nm { color: var(--pink); }
+  .card.hayvan .nm { color: #22b8cf; }
+  footer { position: fixed; bottom: 10px; color: rgba(255,255,255,0.85); font-weight: 800; font-size: 13px; text-shadow: 0 2px 0 rgba(0,0,0,0.15); }
+</style>
+</head>
+<body>
+  <h1><span class="balloon">🎈</span> EVA'NIN OYUNLARI <span class="balloon">🎈</span></h1>
+  <div class="games">
+    <a class="card market" href="market/index.html">
+      <span class="emo">🛒</span>
+      <span class="nm">Eva Market</span>
+      <div class="ds">bip bip! ürün okut, fiş yazdır</div>
+    </a>
+    <a class="card hayvan" href="hayvan/index.html">
+      <span class="emo">🐾</span>
+      <span class="nm">Hayvan Dedektifi</span>
+      <div class="ds">gerçek hayvan sesleri + bilmece</div>
+    </a>
+  </div>
+  <footer>Eva için, babasından 💛</footer>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    }
+  </script>
+</body>
+</html>
