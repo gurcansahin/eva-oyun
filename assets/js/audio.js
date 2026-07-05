@@ -188,12 +188,29 @@
       .replace(/\s+/g, " ")
       .trim();
   }
+
+  // Sesleri (voices) tut; bazı tarayıcılarda asenkron gelir
+  let voices = [];
+  function loadVoices() { try { voices = speechSynthesis.getVoices() || []; } catch (e) { voices = []; } }
+  function trVoice() {
+    if (!voices.length) loadVoices();
+    for (let i = 0; i < voices.length; i++) if (/^tr\b|tr[-_]/i.test(voices[i].lang || "")) return voices[i];
+    return null; // TR ses yoksa null → tarayıcı varsayılan sesi kullanır (fallback)
+  }
+  if (typeof speechSynthesis !== "undefined") {
+    loadVoices();
+    try { speechSynthesis.onvoiceschanged = loadVoices; } catch (e) {}
+  }
+
   function say(text, opts) {
     opts = opts || {};
     try {
+      if (typeof speechSynthesis === "undefined") return;
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(cleanForSpeech(text));
-      u.lang = "tr-TR";
+      const v = trVoice();
+      if (v) u.voice = v;         // TR ses varsa kullan
+      u.lang = "tr-TR";           // yoksa da lang ipucu ver; tarayıcı en yakınını seçer
       u.rate = opts.rate || 0.95;
       u.pitch = opts.pitch || 1.1;
       speechSynthesis.speak(u);
@@ -201,5 +218,44 @@
   }
   function shutUp() { try { speechSynthesis.cancel(); } catch (e) {} }
 
-  global.EvaAudio = { AC: AC, tone: tone, hiss: hiss, playFile: playFile, stopAll: stopAll, preload: preload, fx: fx, say: say, shutUp: shutUp };
+  // ---------- Ses kilidini açma (mobil/tablet autoplay politikası) ----------
+  let unlocked = false, soundBtn = null;
+  function removeBtn() {
+    if (!soundBtn) return;
+    const b = soundBtn; soundBtn = null;
+    b.classList.add("hide");
+    setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 320);
+  }
+  function unlock(userTapped) {
+    try { AC(); } catch (e) {}                     // AudioContext'i resume et
+    try {                                          // konuşma sentezini ısıt
+      if (typeof speechSynthesis !== "undefined") {
+        loadVoices();
+        if (userTapped) { const w = new SpeechSynthesisUtterance(" "); w.volume = 0; speechSynthesis.speak(w); }
+      }
+    } catch (e) {}
+    if (userTapped) { try { fx.pop(); } catch (e) {} } // dokununca duyulur onay
+    unlocked = true;
+    removeBtn();
+  }
+  function ensureSoundButton() {
+    if (unlocked || soundBtn || !document.body) return;
+    soundBtn = document.createElement("button");
+    soundBtn.className = "sound-unlock";
+    soundBtn.type = "button";
+    soundBtn.textContent = "🔊 Sesi Aç";
+    soundBtn.addEventListener("click", function () { unlock(true); });
+    document.body.appendChild(soundBtn);
+  }
+  // ilk kullanıcı hareketinde otomatik aç
+  ["pointerdown", "touchend", "keydown"].forEach(function (ev) {
+    window.addEventListener(ev, function () { unlock(false); }, { once: true, passive: true });
+  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", ensureSoundButton);
+  else ensureSoundButton();
+
+  global.EvaAudio = {
+    AC: AC, tone: tone, hiss: hiss, playFile: playFile, stopAll: stopAll, preload: preload,
+    fx: fx, say: say, shutUp: shutUp, unlock: unlock
+  };
 })(window);

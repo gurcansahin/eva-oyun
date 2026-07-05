@@ -11,7 +11,11 @@
 
   function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
   function pickEmoji() { return EMOJIS[ri(0, EMOJIS.length - 1)]; }
-  function rep(e, n) { return new Array(n + 1).join(e + " ").trim(); }
+  function rep(e, n) {
+    let s = "";
+    for (let i = 0; i < n; i++) s += '<span class="cnt">' + e + "</span>";
+    return s;
+  }
 
   // Her üretici: { html, speech, ans } döner
   function makeCount() {

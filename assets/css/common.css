@@ -10,6 +10,8 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+/* hidden attribute'u display kuralları ezmesin (ör. .menu/.game geçişi) */
+[hidden] { display: none !important; }
 html, body { height: 100%; overflow: hidden; font-family: -apple-system, "Segoe UI", system-ui, sans-serif; }
 body { touch-action: manipulation; }
 
@@ -43,3 +45,14 @@ body { touch-action: manipulation; }
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.18); display: flex; align-items: center; justify-content: center;
 }
 .home-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.18); }
+
+/* ses açma butonu (mobil/tablet — ilk dokunuşta kaybolur) */
+.sound-unlock {
+  position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
+  z-index: 80; border: none; border-radius: 999px; cursor: pointer;
+  background: #fff; color: var(--pink); font-weight: 900; font-size: 15px;
+  padding: 9px 18px; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  animation: sndPulse 1.15s ease-in-out infinite;
+}
+@keyframes sndPulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.09); } }
+.sound-unlock.hide { opacity: 0; pointer-events: none; transition: opacity 0.3s; animation: none; }
