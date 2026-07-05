@@ -1,5 +1,5 @@
 /* Eva Oyunlar — service worker: tam offline önbellek */
-const VERSION = "eva-v1.0.0";
+const VERSION = "eva-v1.2.0";
 const ASSETS = [
   "./",
   "./index.html",
@@ -15,6 +15,12 @@ const ASSETS = [
   "./hayvan/index.html",
   "./hayvan/style.css",
   "./hayvan/game.js",
+  "./muzik/index.html",
+  "./muzik/style.css",
+  "./muzik/game.js",
+  "./matematik/index.html",
+  "./matematik/style.css",
+  "./matematik/game.js",
   "./assets/sounds/ari.mp3",
   "./assets/sounds/aslan.mp3",
   "./assets/sounds/at.mp3",
@@ -42,8 +48,4 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-self.addEventListener("fetch", (e) => {
-  e.respondWith(
-    caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || fetch(e.request))
-  );
-});
+self.addE

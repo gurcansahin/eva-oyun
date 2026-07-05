@@ -1,0 +1,54 @@
+/* Eva Piyano */
+body {
+  background:
+    radial-gradient(circle at 18% 12%, #b39dff 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, #ff9ecb 0%, transparent 50%),
+    linear-gradient(160deg, #8b5cf6 0%, #6366f1 55%, #312e81 100%);
+  display: flex; flex-direction: column;
+}
+
+header { padding: 12px 18px 12px 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.logo { font-size: clamp(22px, 5vw, 34px); font-weight: 900; color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,0.18); letter-spacing: -1px; }
+.logo small { display: block; font-size: 0.42em; font-weight: 800; opacity: 0.9; letter-spacing: 0; }
+.star-box { background: #fff; border-radius: 22px; padding: 8px 20px; box-shadow: 0 8px 0 rgba(0,0,0,0.15); text-align: right; min-width: 110px; }
+.star-box .lbl { font-size: 13px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 1px; }
+.star-box .amt { font-size: clamp(26px, 7vw, 40px); font-weight: 900; color: var(--yellow); line-height: 1; text-shadow: 0 2px 0 rgba(0,0,0,0.12); }
+
+main { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 14px 8px; min-height: 0; }
+
+/* düşen notalar alanı */
+.fall {
+  flex: 1; position: relative; overflow: hidden; min-height: 0;
+  background: rgba(255,255,255,0.14); border: 5px dashed rgba(255,255,255,0.6); border-radius: 26px;
+}
+.fall .hint { position: absolute; top: 12px; left: 0; right: 0; text-align: center; font-size: 15px; font-weight: 900; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,0.2); pointer-events: none; z-index: 1; }
+.tile {
+  position: absolute; width: 23%; height: 76px; border: none; border-radius: 20px;
+  font-size: 24px; font-weight: 900; color: #fff; cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.25); text-shadow: 0 2px 0 rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  transition: transform 0.08s;
+}
+.tile:active { transform: scale(0.92); }
+.tile.hit { animation: tileHit 0.35s forwards; pointer-events: none; }
+@keyframes tileHit { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.7); opacity: 0; } }
+.tile.out { animation: tileOut 0.5s forwards; pointer-events: none; }
+@keyframes tileOut { to { opacity: 0; } }
+
+/* alttaki serbest piyano */
+.piano { display: flex; gap: 6px; height: clamp(84px, 16vh, 120px); }
+.pkey {
+  flex: 1; border: none; border-radius: 16px 16px 22px 22px; cursor: pointer;
+  font-size: clamp(13px, 2.6vw, 18px); font-weight: 900; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.28); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px;
+  transition: transform 0.08s, filter 0.08s;
+}
+.pkey:active, .pkey.lit { transform: translateY(4px); box-shadow: 0 1px 0 rgba(0,0,0,0.28); filter: brightness(1.25); }
+
+.btns { display: flex; gap: 10px; padding: 0 14px 12px; }
+.speed { flex: 1; padding: 12px; font-size: 17px; background: rgba(255,255,255,0.25); opacity: 0.75; }
+.speed.cur { background: var(--pink); opacity: 1; }
+
+@media (max-width: 640px) {
+  .tile { height: 64px; font-size: 20px; }
+}
