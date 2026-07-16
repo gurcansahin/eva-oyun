@@ -1,5 +1,5 @@
 /* Eva Oyunlar — service worker: tam offline önbellek */
-const VERSION = "eva-v1.4.0";
+const VERSION = "eva-v1.6.1";
 const ASSETS = [
   "./",
   "./index.html",
@@ -21,6 +21,13 @@ const ASSETS = [
   "./matematik/index.html",
   "./matematik/style.css",
   "./matematik/game.js",
+  "./akademi/index.html",
+  "./akademi/style.css",
+  "./akademi/game.js",
+  "./yakala/index.html",
+  "./yakala/style.css",
+  "./yakala/game.js",
+  "./temizle.html",
   "./assets/sounds/ari.mp3",
   "./assets/sounds/aslan.mp3",
   "./assets/sounds/at.mp3",
@@ -37,7 +44,21 @@ const ASSETS = [
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(VERSION).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  // HTTP önbelleğini atla ve yönlendirilmiş yanıtları temizle:
+  // yönlendirilmiş yanıt navigasyonda Chrome tarafından reddedilir (beyaz sayfa).
+  e.waitUntil(
+    caches.open(VERSION).then((c) =>
+      Promise.all(ASSETS.map((url) =>
+        fetch(url, { cache: "no-cache" }).then((r) => {
+          if (!r.ok) throw new Error("cache fail: " + url);
+          if (r.redirected) {
+            return r.blob().then((b) => c.put(url, new Response(b, { status: 200, headers: r.headers })));
+          }
+          return c.put(url, r);
+        })
+      ))
+    ).then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (e) => {

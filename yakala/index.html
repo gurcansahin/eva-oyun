@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ff2d78">
+<title>Yakala Yakala! 🤗</title>
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">🤗 YAKALA YAKALA<small>kaç kaç kaç... yakalandın!</small></div>
+    <div class="star-box"><div class="lbl">Yakalama</div><div class="amt" id="stars">0</div></div>
+  </header>
+
+  <!-- mod menüsü + yakalayıcı seçimi (JS çizer) -->
+  <main id="menu" class="menu"></main>
+
+  <!-- oyun alanı -->
+  <main id="play" class="play" hidden>
+    <div class="prog" id="playProg"></div>
+    <div class="arena" id="arena">
+      <span class="deco" style="left:2%;  top:4%;">🌳</span>
+      <span class="deco" style="right:2%; top:6%;">🌳</span>
+      <span class="deco" style="left:4%;  bottom:5%;">🌷</span>
+      <span class="deco" style="right:5%; bottom:4%;">🌼</span>
+      <span class="deco" style="left:45%; top:2%;">🦋</span>
+      <span class="deco" style="left:30%; bottom:2%;">🍄</span>
+      <div class="chr" id="evaChr"><span class="b">👧</span></div>
+      <div class="chr" id="chaserChr" hidden><span class="b">🐶</span></div>
+      <div class="catchfx" id="catchFx" hidden>
+        <div class="hug">🤗</div>
+        <div class="txt" id="catchTxt">YAKALADIM!</div>
+      </div>
+    </div>
+    <button class="candy back" id="backBtn">⬅️ Oyunlar</button>
+  </main>
+
+  <script src="../assets/js/audio.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temizlik 🧹</title>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding-top:80px;font-size:24px;font-weight:bold">
+🧹 Önbellek temizleniyor...
+<script>
+(async function () {
+  try {
+    var keys = await caches.keys();
+    await Promise.all(keys.map(function (k) { return caches.delete(k); }));
+    if (navigator.serviceWorker) {
+      var regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(function (r) { return r.unregister(); }));
+    }
+    document.body.innerHTML = "✅ Temizlendi! Oyunlara gidiliyor...";
+  } catch (e) {
+    document.body.innerHTML = "⚠️ Hata: " + e;
+  }
+  setTimeout(function () { location.replace("./index.html"); }, 900);
+})();
+</script>
+</body>
+</html>

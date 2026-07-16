@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#f97316">
+<title>Eva Akademi 🎡</title>
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">🎡 EVA AKADEMİ<small>öğren, eğlen, kazan!</small></div>
+    <div class="star-box"><div class="lbl">Yıldız</div><div class="amt" id="stars">0</div></div>
+  </header>
+
+  <!-- oyun menüsü (ana + ingilizce alt menü buraya çizilir) -->
+  <main id="menu" class="menu"></main>
+
+  <!-- sürükle-bırak ekranı: geri dönüşüm + sağlıklı mı -->
+  <main id="sort" class="sort" hidden>
+    <div class="prog" id="sortProg"></div>
+    <div class="stage" id="stage">
+      <div class="drag-item" id="dragItem" hidden></div>
+    </div>
+    <div class="bins" id="bins"></div>
+    <button class="candy back" id="sortBack">⬅️ Oyunlar</button>
+  </main>
+
+  <!-- ingilizce dinle-bul ekranı -->
+  <main id="quiz" class="quiz" hidden>
+    <div class="prog" id="quizProg"></div>
+    <div class="qcard">
+      <button class="candy speak" id="speakBtn">🔊</button>
+      <div class="qtext" id="qText"></div>
+    </div>
+    <div class="opts" id="opts"></div>
+    <button class="candy back" id="quizBack">⬅️ Oyunlar</button>
+  </main>
+
+  <!-- seçmeli ekran: gölge bulmaca + görsel hafıza -->
+  <main id="pick" class="quiz" hidden>
+    <div class="prog" id="pickProg"></div>
+    <div class="memgrid" id="pickGrid" hidden></div>
+    <div class="qcard"><div class="qtext" id="pickQ"></div></div>
+    <div class="opts" id="pickOpts"></div>
+    <button class="candy back" id="pickBack">⬅️ Oyunlar</button>
+  </main>
+
+  <!-- kaç tane? ekranı: bul, dokun, say -->
+  <main id="count" class="count" hidden>
+    <div class="prog" id="countProg"></div>
+    <div class="cquest" id="countQ"></div>
+    <div class="cfield" id="countField"></div>
+    <div class="cnums" id="countNums"></div>
+    <button class="candy back" id="countBack">⬅️ Oyunlar</button>
+  </main>
+
+  <script src="../assets/js/audio.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

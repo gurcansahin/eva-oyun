@@ -1,0 +1,71 @@
+/* Yakala Yakala! */
+body {
+  background:
+    radial-gradient(circle at 20% 15%, #ffd6e7 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, #fff3b0 0%, transparent 50%),
+    linear-gradient(160deg, #ff6fa5 0%, #ff2d78 55%, #8b5cf6 100%);
+  display: flex; flex-direction: column;
+}
+
+header { padding: 12px 18px 12px 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.logo { font-size: clamp(22px, 5vw, 34px); font-weight: 900; color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,0.18); letter-spacing: -1px; }
+.logo small { display: block; font-size: 0.42em; font-weight: 800; opacity: 0.9; letter-spacing: 0; }
+.star-box { background: #fff; border-radius: 22px; padding: 8px 20px; box-shadow: 0 8px 0 rgba(0,0,0,0.15); text-align: right; min-width: 110px; }
+.star-box .lbl { font-size: 13px; font-weight: 800; color: var(--pink); text-transform: uppercase; letter-spacing: 1px; }
+.star-box .amt { font-size: clamp(26px, 7vw, 40px); font-weight: 900; color: var(--yellow); line-height: 1; text-shadow: 0 2px 0 rgba(0,0,0,0.12); }
+
+/* menü (mod + yakalayıcı seçimi) */
+.menu {
+  flex: 1; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center;
+  padding: 10px 16px 20px; overflow-y: auto;
+}
+.lvl {
+  width: min(230px, 44vw); border: none; border-radius: 26px; background: #fff; cursor: pointer;
+  padding: 20px 12px 16px; text-align: center; box-shadow: 0 8px 0 rgba(0,0,0,0.16);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.lvl:active { transform: translateY(5px); box-shadow: 0 2px 0 rgba(0,0,0,0.16); }
+.lvl .emo { font-size: clamp(46px, 10vw, 64px); display: block; line-height: 1.1; }
+.lvl .nm { font-size: clamp(17px, 4vw, 22px); font-weight: 900; color: #333; margin-top: 6px; }
+.lvl .ds { font-size: clamp(12px, 3vw, 14px); font-weight: 800; color: #999; margin-top: 3px; }
+.mtitle { flex-basis: 100%; text-align: center; font-weight: 900; color: #fff; font-size: clamp(18px, 4.5vw, 26px); text-shadow: 0 2px 0 rgba(0,0,0,0.18); }
+
+.prog { text-align: center; font-weight: 900; color: #fff; font-size: 17px; text-shadow: 0 2px 0 rgba(0,0,0,0.18); }
+.back { background: rgba(255,255,255,0.28); padding: 10px; font-size: 15px; }
+
+/* oyun alanı: gökyüzü + çimen bahçe */
+.play { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 14px 12px; min-height: 0; }
+.arena {
+  flex: 1; position: relative; min-height: 0; border-radius: 26px; overflow: hidden;
+  background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 42%, #bbf7d0 42%, #86efac 100%);
+  box-shadow: 0 8px 0 rgba(0,0,0,0.15);
+  touch-action: none; cursor: pointer;
+}
+.deco { position: absolute; font-size: clamp(26px, 6vw, 44px); line-height: 1; pointer-events: none; opacity: 0.95; }
+.chr {
+  position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none;
+  font-size: clamp(46px, 11vw, 74px); line-height: 1; will-change: transform;
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.22));
+}
+.chr .b { display: inline-block; animation: bob 0.55s ease-in-out infinite alternate; }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+
+/* yakalama şöleni */
+.catchfx {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+}
+.catchfx .hug { font-size: clamp(84px, 24vw, 170px); line-height: 1; animation: hugpop 0.7s; }
+.catchfx .txt {
+  font-weight: 900; font-size: clamp(24px, 6.5vw, 42px); color: var(--pink);
+  text-shadow: 0 3px 0 #fff; letter-spacing: 1px; animation: hugpop 0.7s;
+}
+@keyframes hugpop {
+  0% { transform: scale(0.2); opacity: 0; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 640px) {
+  .menu { align-content: flex-start; }
+}
