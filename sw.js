@@ -1,5 +1,5 @@
 /* Eva Oyunlar — service worker: tam offline önbellek */
-const VERSION = "eva-v1.6.1";
+const VERSION = "eva-v1.6.2";
 const ASSETS = [
   "./",
   "./index.html",

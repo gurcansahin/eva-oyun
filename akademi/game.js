@@ -1,5 +1,6 @@
-/* Eva Akademi — etkinlik kitabından ilhamla 3 mini oyun:
-   ♻️ Geri Dönüşüm (sürükle-bırak), 🇬🇧 İngilizce (dinle-bul), 🥦 Sağlıklı mı? (sürükle-bırak)
+/* Eva Akademi — etkinlik kitabından ilhamla 7 mini oyun:
+   ♻️ Geri Dönüşüm, 🇬🇧 İngilizce, 🥦 Sağlıklı mı?, 🔗 Sebep-Sonuç,
+   🌑 Gölge Bulmaca, 🔍 Kaç Tane?, 🧠 Görsel Hafıza
    Cezasız: yanlışta tekrar denenir, doğruda konfeti + övgü. */
 (function () {
   "use strict";
@@ -141,6 +142,43 @@
     { e: "💚", n: "yeşil kalp" }, { e: "🟣", n: "mor daire" }
   ];
 
+  // ---------- veri: sebep-sonuç ----------
+  const CAUSE_QS = [
+    { qe: "🌧️", q: "Yağmur yağarsa ne yaparız?", why: "Yağmurda ıslanmamak için şemsiye açarız!",
+      opts: [{ e: "☔", t: "Şemsiye açarız", ok: true }, { e: "🕶️", t: "Güneş gözlüğü takarız" }, { e: "🪁", t: "Uçurtma uçururuz" }] },
+    { qe: "🥶", q: "Hava çok soğuksa ne giyeriz?", why: "Soğukta üşümemek için mont giyeriz!",
+      opts: [{ e: "🧥", t: "Mont giyeriz", ok: true }, { e: "👙", t: "Mayo giyeriz" }, { e: "🩳", t: "Şort giyeriz" }] },
+    { qe: "🍫", q: "Çok şeker yersek ne olur?", why: "Çok şeker dişleri çürütür, az yemeliyiz!",
+      opts: [{ e: "🦷", t: "Dişlerimiz çürür", ok: true }, { e: "💪", t: "Güçleniriz" }, { e: "📏", t: "Boyumuz uzar" }] },
+    { qe: "🌱", q: "Çiçeğe su verirsek ne olur?", why: "Su verince çiçekler büyür, rengarenk açar!",
+      opts: [{ e: "🌸", t: "Büyür ve açar", ok: true }, { e: "🥀", t: "Hemen solar" }, { e: "🦋", t: "Kelebek olur" }] },
+    { qe: "🍽️", q: "Yemekten önce ne yaparız?", why: "Mikroplardan korunmak için ellerimizi yıkarız!",
+      opts: [{ e: "🧼", t: "Ellerimizi yıkarız", ok: true }, { e: "😴", t: "Uyuruz" }, { e: "📺", t: "Televizyon açarız" }] },
+    { qe: "🪥", q: "Dişlerimizi fırçalarsak ne olur?", why: "Fırçalayınca dişlerimiz tertemiz parlar!",
+      opts: [{ e: "✨", t: "Pırıl pırıl parlar", ok: true }, { e: "🥶", t: "Dişlerimiz üşür" }, { e: "🎨", t: "Rengi değişir" }] },
+    { qe: "☀️", q: "Güneş açınca kardan adam ne olur?", why: "Güneş sıcaktır, kar erir, su olur!",
+      opts: [{ e: "💧", t: "Erir", ok: true }, { e: "🕺", t: "Dans eder" }, { e: "📏", t: "Büyür" }] },
+    { qe: "💡", q: "Düğmeye basarsak ne olur?", why: "Elektrik düğmesi lambayı yakar!",
+      opts: [{ e: "💡", t: "Lamba yanar", ok: true }, { e: "🌧️", t: "Yağmur yağar" }, { e: "🚗", t: "Araba gelir" }] },
+    { qe: "😴", q: "Uykumuz gelirse ne yaparız?", why: "Güzelce uyuruz, sabah dinç kalkarız!",
+      opts: [{ e: "🛏️", t: "Yatağa gideriz", ok: true }, { e: "⚽", t: "Top oynarız" }, { e: "🍰", t: "Pasta yeriz" }] },
+    { qe: "🌰", q: "Tohumu toprağa ekersek ne olur?", why: "Tohum toprakta büyür, koca bir ağaç olur!",
+      opts: [{ e: "🌳", t: "Ağaç büyür", ok: true }, { e: "🚀", t: "Roket olur" }, { e: "🍭", t: "Şeker çıkar" }] },
+    { qe: "❄️", q: "Karda oynarsak ellerimize ne takarız?", why: "Eldiven ellerimizi sıcacık tutar!",
+      opts: [{ e: "🧤", t: "Eldiven takarız", ok: true }, { e: "🩴", t: "Terlik takarız" }, { e: "🎩", t: "Şapka takarız" }] },
+    { qe: "🦠", q: "Ellerimizi hiç yıkamazsak ne olur?", why: "Mikroplar bizi hasta etmesin diye elleri yıkarız!",
+      opts: [{ e: "🤒", t: "Hasta olabiliriz", ok: true }, { e: "🦸", t: "Süper güç kazanırız" }, { e: "🌈", t: "Gökkuşağı çıkar" }] },
+    { qe: "🧸", q: "Oyuncaklarımızı toplarsak ne olur?", why: "Odamız tertemiz olur, oyuncaklar kaybolmaz!",
+      opts: [{ e: "✨", t: "Odamız tertemiz olur", ok: true }, { e: "🌧️", t: "Yağmur yağar" }, { e: "🐘", t: "Fil gelir" }] },
+    { qe: "🥛", q: "Süt içersek ne olur?", why: "Süt kemiklerimizi güçlendirir!",
+      opts: [{ e: "💪", t: "Kemiklerimiz güçlenir", ok: true }, { e: "🐄", t: "İnek oluruz" }, { e: "🎈", t: "Uçarız" }] },
+    { qe: "🔌", q: "Prize dokunursak ne olur?", why: "Prizlere asla dokunmayız, elektrik çarpar, çok tehlikeli!",
+      opts: [{ e: "⚡", t: "Elektrik çarpar, tehlikeli!", ok: true }, { e: "🎵", t: "Müzik çalar" }, { e: "🍭", t: "Şeker verir" }] },
+    { qe: "🚦", q: "Kırmızı ışık yanarsa ne yaparız?", why: "Kırmızıda dururuz, yeşil yanınca geçeriz!",
+      opts: [{ e: "✋", t: "Dururuz", ok: true }, { e: "🏃", t: "Koşarak geçeriz" }, { e: "🕺", t: "Dans ederiz" }] }
+  ];
+  let causeQueue = [];
+
   // ---------- veri: kaç tane? ----------
   const COUNT_THEMES = [
     [ { e: "🚁", n: "helikopter" }, { e: "🚗", n: "araba" }, { e: "🚂", n: "tren" }, { e: "⛵", n: "yelkenli" }, { e: "🚲", n: "bisiklet" } ],
@@ -192,6 +230,11 @@
     menuCard("🌑", "Gölge Bulmaca", "doğru gölgeyi bul", "golge", function () {
       startPick({ key: "golge", total: 8, render: renderShadowQ,
                   intro: "Gölge bulmaca! Resmin gölgesini bul!" });
+    });
+    menuCard("🔗", "Sebep-Sonuç", "ne olur? düşün, seç", "sebep", function () {
+      causeQueue = shuffle(CAUSE_QS);
+      startPick({ key: "sebep", total: 8, render: renderCauseQ,
+                  intro: "Sebep sonuç oyunu! İyi dinle, düşün, doğru cevabı seç!" });
     });
     menuCard("🔍", "Kaç Tane?", "bul, dokun, say", "kac", startCount);
     menuCard("🧠", "Hafıza", "bak, aklında tut", "hafiza", function () {
@@ -499,6 +542,21 @@
     pickToken++; clearInterval(memTimer);
     pickGame = null; renderMenu();
   };
+
+  // sebep-sonuç sorusu: durum + 3 seçenek, doğrusunda açıklama
+  function renderCauseQ() {
+    const item = causeQueue[(pickNo - 1) % causeQueue.length];
+    pickGrid.hidden = true;
+    pickQ.innerHTML = '<span class="qemo">' + item.qe + "</span>" + item.q;
+    A.say(item.q);
+    renderPickOpts(shuffle(item.opts).map(function (o) {
+      return {
+        html: '<span class="oemo">' + o.e + '</span><span class="oen ocause">' + o.t + "</span>",
+        ok: !!o.ok,
+        after: function () { A.say(item.why + " " + praiseTR()); }
+      };
+    }));
+  }
 
   // gölge bulmaca sorusu: renkli resim + 3 siyah gölge
   function renderShadowQ() {
